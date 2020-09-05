@@ -1,5 +1,7 @@
 package com.github.perscholas;
 
+import java.util.Arrays;
+
 /**
  * Created by leon on 1/29/18.
  */
@@ -87,21 +89,62 @@ public class StringArrayUtils {
         return null;
     }
 
+
+    // Why is Array giving me an error here?
     /**
      * @param array array of chars
      * @return array of Strings with consecutive duplicates removes
      */ // TODO
     public static String[] removeConsecutiveDuplicates(String[] array) {
-        return null;
+        String[] newArr = new String[array.length];
+        int k = 0; // index for newArr
+        /*for (int i = 1; i < array.length ; i++) {
+            int j = i+1; // index for while loop.
+            newArr[k] = array[i];
+            while (j < array.length - 1 && array[i]==array[j] ) { // && to prevent out of bounds.
+                j++;
+                i = j - 1; // reset this to -1 since i will increment by 1. Move this in while loop to prevent infinite loop on last cycle.
+            }
+            k++;
+        }*/
+        // reverse method -- simpler
+        int i = 0;
+        newArr[i] = array[i];
+        for (i = 1; i < array.length ; i++){
+            if (array[i-1]!=array[i])
+                newArr[i] = array[i];
+        }
+
+        return newArr;
+
     }
 
     /**
      * @param array array of chars
-     * @return array of Strings with each consecutive duplicate occurrence concatenated as a single string in an array of Strings
+     * @return array of Strings with each consecutive duplicate occurrence
+     *         concatenated as a single string in an array of Strings
      */ // TODO
     public static String[] packConsecutiveDuplicates(String[] array) {
-        return null;
-    }
 
+        // 0, 1, 2, 2, 2, 3, 4
+        String[] newArr = new String[array.length];
+        StringBuilder newStr = new StringBuilder();
+        for (int i = 0; i < array.length ; i++) {
+            int k = 0; // index for newArr
+            int j = i+1; // index for while loop
+
+            newStr = newStr.append(array[i]);
+            while (j < array.length - 1 && array[i]==array[j] ) {
+                newStr = newStr.append(array[j]);
+                j++;
+                i = j - 1; // reset this to -1 since i will increment by 1.
+            }
+
+            newArr[k] = newStr.toString();
+            k++;
+        }
+
+        return newArr;
+    }
 
 }
